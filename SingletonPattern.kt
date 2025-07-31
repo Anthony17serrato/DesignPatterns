@@ -10,7 +10,7 @@ fun main() {
 // Syncronized singleton, pro: easy thread safe config, con: @Syncronized is considered expensive way to get singleton instance
 class SynchronizedSingleton private constructor() {
     companion object {
-        lateinit var instance: SynchronizedSingleton
+        private lateinit var instance: SynchronizedSingleton
         
         @Synchronized
         fun getSingletonInstance(): SynchronizedSingleton {
@@ -33,14 +33,14 @@ class EagerSingleton private constructor() {
 class DoubleCheckedLockingSingleton private constructor() {
     companion object {
         @Volatile
-        lateinit var instance: DoubleCheckedLockingSingleton
+        private lateinit var instance: DoubleCheckedLockingSingleton
         
        
         fun getSingletonInstance(): DoubleCheckedLockingSingleton {
             if (::instance.isInitialized.not()) {
                 synchronized(DoubleCheckedLockingSingleton::class.java) {
                     if (::instance.isInitialized.not()) {
-                    	instance = DoubleCheckedLockingSingleton()
+                        instance = DoubleCheckedLockingSingleton()
                     }
                 }
             }
