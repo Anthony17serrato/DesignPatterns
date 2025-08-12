@@ -59,6 +59,18 @@ class Light(val name: String) {
     }
 }
 
+class LightOnCommand(val light: Light): Command {
+    override fun execute() {
+        light.lightOn()
+    }
+}
+
+class LightOffCommand(val light: Light): Command {
+    override fun execute() {
+        light.lightOff()
+    }
+}
+
 class CeilingFan(val name: String) {
     fun setHigh() {
         println("$name ceiling fan is on high")
@@ -69,6 +81,18 @@ class CeilingFan(val name: String) {
     }
 }
 
+class CeilingFanOnSetHighCommand(val ceilingFan: CeilingFan): Command {
+    override fun execute() {
+        ceilingFan.setHigh()
+    }
+}
+
+class CeilingFanOffCommand(val ceilingFan: CeilingFan): Command {
+    override fun execute() {
+        ceilingFan.setOff()
+    }
+}
+
 class GarageDoor(val name: String) {
     fun garageDoorOpen() {
         println("$name Garage Door is open")
@@ -76,6 +100,18 @@ class GarageDoor(val name: String) {
     
     fun garageDoorClose() {
         println("$name Garage Door is closed")
+    }
+}
+
+class GarageDoorOpenCommand(val garageDoor: GarageDoor): Command {
+    override fun execute() {
+        garageDoor.garageDoorOpen()
+    }
+}
+
+class GarageDoorCloseCommand(val garageDoor: GarageDoor): Command {
+    override fun execute() {
+        garageDoor.garageDoorClose()
     }
 }
 
@@ -90,5 +126,23 @@ class Stereo(val name: String) {
     
     fun setVolume(level: Int) {
         println("Volume is set to $level")
+    }
+    
+    fun off() {
+        println("Stero is off")
+    }
+}
+
+class StereoOnWithCdCommand(val stereo: Stereo): Command {
+    override fun execute() {
+        stereo.on()
+        stereo.setCd()
+        stereo.setVolume(11)
+    }
+}
+
+class StereoOffCommand(val stereo: Stereo): Command {
+    override fun execute() {
+        stereo.off()
     }
 }
