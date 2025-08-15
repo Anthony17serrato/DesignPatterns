@@ -5,10 +5,38 @@ fun main() {
     val livingRoomLight = Light("Living Room")
     val kitchenLight = Light("Kitchen")
     val ceilingFan = CeilingFan("Living Room")
-    val garageDoor = GarageDoor("")
+    val garageDoor = GarageDoor("Home")
     val stereo = Stereo("Living Room")
     
+    val livingRoomLightOn = LightOnCommand(livingRoomLight)
+    val livingRoomLightOff = LightOffCommand(livingRoomLight)
+    val kitchenLightOn = LightOnCommand(livingRoomLight)
+    val kitchenLightOff = LightOffCommand(livingRoomLight)
+    val ceilingFanOn = CeilingFanOnSetHighCommand(ceilingFan)
+    val ceilingFanOff = CeilingFanOffCommand(ceilingFan)
+    val garageDoorOpen = GarageDoorOpenCommand(garageDoor)
+    val garageDoorClose = GarageDoorCloseCommand(garageDoor)
+    val stereoOnWithCd = StereoOnWithCdCommand(stereo)
+    val stereoOff = StereoOffCommand(stereo)
+    
+    remoteControl.setCommand(0, livingRoomLightOn, livingRoomLightOff)
+    remoteControl.setCommand(1, kitchenLightOn, kitchenLightOff)
+    remoteControl.setCommand(2, ceilingFanOn, ceilingFanOff)
+    remoteControl.setCommand(3, garageDoorOpen, garageDoorClose)
+    remoteControl.setCommand(4, stereoOnWithCd, stereoOff)
+    
     println(remoteControl)
+    
+    remoteControl.onButtonWasPushed(0)
+    remoteControl.offButtonWasPushed(0)
+    remoteControl.onButtonWasPushed(1)
+    remoteControl.offButtonWasPushed(1)
+    remoteControl.onButtonWasPushed(2)
+    remoteControl.offButtonWasPushed(2)
+    remoteControl.onButtonWasPushed(3)
+    remoteControl.offButtonWasPushed(3)
+    remoteControl.onButtonWasPushed(4)
+    remoteControl.offButtonWasPushed(4)
 }
 
 interface Command {
@@ -146,3 +174,4 @@ class StereoOffCommand(val stereo: Stereo): Command {
         stereo.off()
     }
 }
+
